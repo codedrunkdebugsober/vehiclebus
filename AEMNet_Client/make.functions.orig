@@ -1,0 +1,17 @@
+
+# === Functions ======================================================================================================
+
+# Function to replace the source file path of each source file to it's binary path.
+source-dir-to-binary-dir = $(subst $(SRC_DIR), $(OBJECT_BUILD_DIR), $1)
+
+#Function to replace the .c source file extension with it's object file extension
+source-file-to-object-file = $(subst .c,.c.o,$(filter %.c, $1))  $(subst .cpp,.cpp.o,$(filter %.cpp, $1))
+
+#Function to generate a library filename from a library base name.
+lib-to-filename = $(addsuffix .a, $(addprefix lib,$1))
+
+#Function to replace a list of source files in their directory paths to their corresponding object files, in the binary file path
+source-to-object = $(call source-dir-to-binary-dir, $(call source-file-to-object-file, $1))
+
+#Function for listing the binary being built
+echo-building-binary = @echo "== Building $1 == "

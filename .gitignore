@@ -1,0 +1,25 @@
+#Ignore compiled objects
+*.o
+*.o32
+*.o64
+*.d
+*.a
+*.axf
+*.bin
+*.exe
+*.exe.stackdump
+*.mk
+*.map
+*.lst
+.cproject
+language.settings.xml
+CppUnitAutomated-Results.xml
+CppUnitFreeRTOSAutomated-Results.xml
+cppunit_oclint_report.xml
+valgrind_output.txt
+valgrind_output.xml
+nmlisting.txt
+bin/
+Debug/
+swig_output/
+*/src/swig/*

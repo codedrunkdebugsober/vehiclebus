@@ -1,0 +1,59 @@
+
+# === Functions ======================================================================================================
+
+# Function to replace the source file path of each source file to it's binary path.
+source-dir-to-binary-dir = $(subst $(SRC_DIR), $(OBJECT_BUILD_DIR), $1)
+source-dir-to-optimized-binary-dir = $(subst $(SRC_DIR), $(OBJECT_BUILD_DIR_OPTIMIZED), $1)
+source-dir-to-mingw-binary-dir = $(subst $(SRC_DIR), $(OBJECT_BUILD_DIR_MINGW), $1)
+source-dir-to-shared-binary-dir = $(subst $(SRC_DIR), $(OBJECT_BUILD_DIR_SHARED), $1)
+source-dir-to-gcov-binary-dir = $(subst $(SRC_DIR), $(OBJECT_BUILD_DIR_GCOV), $1)
+source-dir-to-arm-dir = $(subst $(SRC_DIR), $(OBJECT_BUILD_DIR_ARM), $1)
+
+asm-dir-to-binary-dir = $(subst $(SRC_DIR), $(OBJECT_BUILD_DIR), $1)
+
+# Function to replace the source file path of each source file to it's list path.
+source-dir-to-list-dir = $(subst $(SRC_DIR), $(LIST_BUILD_DIR), $1)
+
+#Function to replace the .c source file extension with it's object file extension
+source-file-to-object-file = $(subst .c,.c.o,$(filter %.c, $1))  $(subst .cpp,.cpp.o,$(filter %.cpp, $1))
+
+#Function to replace the .c source file extension with it's object file extension
+source-file-to-lst-file = $(subst .c,.lst,$(filter %.c, $1))  $(subst .cpp,.lst,$(filter %.cpp, $1))
+
+#Function to replace the .c source file extension with it's generated gcov .gcda file extension.
+source-file-to-gcda-file = $(subst .c,.c.gcda,$(filter %.c, $1))  $(subst .cpp,.cpp.gcda,$(filter %.cpp, $1))
+
+#Function to replace the .c source file extension with it's generated gcov .gcno file extension.
+source-file-to-gcno-file = $(subst .c,.c.gcno,$(filter %.c, $1))  $(subst .cpp,.cpp.gcno,$(filter %.cpp, $1))
+
+#Function to replace the .c source file extension with it's object file extension
+asm-file-to-object-file = $(subst .asm,.o,$(filter %.asm, $1))
+
+#Function to generate a library filename from a library base name.
+lib-to-filename = $(addsuffix .a, $(addprefix lib,$1))
+
+#Function to generate an optimized library name from a library base name.
+lib-to-optimized-lib = $(addsuffix _optimized, $1)
+
+#Function to generate a MinGW library name from a library base name.
+lib-to-mingw-lib = $(addsuffix _mingw, $1)
+
+#Function to generate an ARM library name from a library base name.
+lib-to-arm-lib = $(addsuffix _arm, $1)
+
+#Function to replace a list of source files in their directory paths to their corresponding object files, in the binary file path
+source-to-object = $(call source-dir-to-binary-dir, $(call source-file-to-object-file, $1))
+source-to-optimized-object = $(call source-dir-to-optimized-binary-dir, $(call source-file-to-object-file, $1))
+source-to-mingw-object = $(call source-dir-to-mingw-binary-dir, $(call source-file-to-object-file, $1))
+source-to-shared-object = $(call source-dir-to-shared-binary-dir, $(call source-file-to-object-file, $1))
+source-to-gcov-object = $(call source-dir-to-gcov-binary-dir, $(call source-file-to-object-file, $1))
+source-to-arm-object = $(call source-dir-to-arm-dir, $(call source-file-to-object-file, $1))
+
+source-to-gcov-gcda = $(call source-dir-to-gcov-binary-dir, $(call source-file-to-gcda-file, $1))
+source-to-gcov-gcno = $(call source-dir-to-gcov-binary-dir, $(call source-file-to-gcno-file, $1))
+source-to-lst = $(call source-dir-to-list-dir, $(call source-file-to-lst-file, $1))
+
+asm-to-object = $(call asm-dir-to-binary-dir, $(call asm-file-to-object-file, $1))
+
+#Function for listing the binary being built
+echo-building-binary = @echo "== Building $1 == "
